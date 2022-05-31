@@ -1,5 +1,6 @@
-import { Board } from './board.model';
+import { Board, BoardStatus } from './board.model';
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class BoardsService {
@@ -8,6 +9,17 @@ export class BoardsService {
 
   getAllBoards():Board[] {
     return this.boards;
+  }
+
+  createBoard(title:string,description:string):Board{
+    const newBoard:Board = {
+      id: randomUUID(),
+      title,
+      description,
+      status: BoardStatus.PUBLIC,
+    };
+    this.boards.push(newBoard);
+    return newBoard;
   }
 
 }
