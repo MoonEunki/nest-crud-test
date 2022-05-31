@@ -13,9 +13,7 @@ export class BoardsService {
   }
 
   createBoard( createBoardDto:CreateBoardDto):Board{
-
-    const { title, description } = createBoardDto;
-    
+    const { title, description } = createBoardDto;  
     const newBoard:Board = {
       id: randomUUID(),
       title,
@@ -24,6 +22,10 @@ export class BoardsService {
     };
     this.boards.push(newBoard);
     return newBoard;
+  }
+
+  getBoardById(id:string):Board{
+    return this.boards.find((board)=> board.id === id);
   }
 
 }
