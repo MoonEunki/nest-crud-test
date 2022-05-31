@@ -1,6 +1,6 @@
 import { CreateBoardDto } from './dto/create-board-dto';
 import { Board, BoardStatus } from './board.model';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Delete } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
 @Injectable()
@@ -31,7 +31,8 @@ export class BoardsService {
   }
 
   deleteBoardById(id:string):void{
-    this.boards = this.boards.filter((board)=> board.id !== id);
+    const foundBoard = this.getBoardById(id);
+    this.boards = this.boards.filter((board)=> board.id !== foundBoard.id);
   }
 
   updateBoardStatus(id:string,status:BoardStatus):Board{
